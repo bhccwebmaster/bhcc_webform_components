@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies:
+  # We specify that this migration depends on the bhcc_webform_components module.
+  # Based on this dependency, this migration will be removed when the
+  # bhcc_webform_components module is uninstalled.
+  enforced:
+    module:
+      - bhcc_webform_components
+id: bhcc_title
+label: 'BHCC Title'
+category: BHCC
+likert: false
+options: "Mr: Mr\nMrs: Mrs\nMiss: Miss\nMs: Ms\nMx: Mx\nDr: Dr"

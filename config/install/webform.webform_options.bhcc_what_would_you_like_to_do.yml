@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies:
+  # We specify that this migration depends on the bhcc_webform_components module.
+  # Based on this dependency, this migration will be removed when the
+  # bhcc_webform_components module is uninstalled.
+  enforced:
+    module:
+      - bhcc_webform_components
+id: bhcc_what_would_you_like_to_do
+label: 'BHCC What would you like to do?'
+category: BHCC
+likert: false
+options: "Renew: Renew\nCancel: Cancel\nReport: Report\nComplain: Complain\nQuery: Query\nCompliment: Compliment"

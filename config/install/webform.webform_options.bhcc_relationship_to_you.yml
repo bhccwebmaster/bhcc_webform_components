@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  # We specify that this migration depends on the bhcc_webform_components module.
+  # Based on this dependency, this migration will be removed when the
+  # bhcc_webform_components module is uninstalled.
+  enforced:
+    module:
+      - bhcc_webform_components
+id: bhcc_relationship_to_you
+label: 'BHCC Relationship to you'
+category: BHCC
+likert: false
+options: |
+  'Colleague': 'Colleague'
+  'Family': 'Family'
+  'Friend': 'Friend'
+  'Manager/employer': 'Manager/employer'
+  'Professional': 'Professional'
+  'Staff/employee': 'Staff/employee'

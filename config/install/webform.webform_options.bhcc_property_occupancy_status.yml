@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies:
+  # We specify that this migration depends on the bhcc_webform_components module.
+  # Based on this dependency, this migration will be removed when the
+  # bhcc_webform_components module is uninstalled.
+  enforced:
+    module:
+      - bhcc_webform_components
+id: bhcc_property_occupancy_status
+label: 'BHCC Property/occupancy status'
+category: BHCC
+likert: false
+options: "'Council tenant': 'Council tenant'\n'Owner occupier': 'Owner occupier'\n'Landlord (don''t occupy)': 'Landlord (don''t occupy)'\nSub-tenant: Sub-tenant\nOccupant: Occupant"

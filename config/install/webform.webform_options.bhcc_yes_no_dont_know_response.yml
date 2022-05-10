@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies:
+  # We specify that this migration depends on the bhcc_webform_components module.
+  # Based on this dependency, this migration will be removed when the
+  # bhcc_webform_components module is uninstalled.
+  enforced:
+    module:
+      - bhcc_webform_components
+id: bhcc_yes_no_dont_know_response
+label: 'BHCC Yes/No/Don''t know response'
+category: BHCC
+likert: false
+options: "'Yes': 'Yes'\n'No': 'No'\n'I don''t know': 'I don''t know'"
