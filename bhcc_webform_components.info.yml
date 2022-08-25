@@ -2,7 +2,7 @@ name: 'BHCC Webform Components'
 type: module
 description: 'BHCC Webform Components'
 package: 'BHCC Webform'
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^9 || ^10
 dependencies:
   - 'webform:webform'
 
