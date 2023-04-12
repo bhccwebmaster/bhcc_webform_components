@@ -23,14 +23,12 @@ use Drupal\bhcc_webform\BHCCWebformHelper;
  *
  * @see \Drupal\webform\Element\WebformCompositeBase
  */
-class BHCCWebformHouseholdPerson extends WebformCompositeBase
-{
+class BHCCWebformHouseholdPerson extends WebformCompositeBase {
 
   /**
    * {@inheritdoc}
    */
-  public static function getCompositeElements(array $element)
-  {
+  public static function getCompositeElements(array $element) {
 
     // Generate a unique ID that can be used by #states.
     $html_id = Html::getUniqueId('bhcc_webform_household_person');
@@ -41,7 +39,7 @@ class BHCCWebformHouseholdPerson extends WebformCompositeBase
       '#required_error' => 'Please provide a first name.',
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--first_name',
-        //TO DO - check styling requirements
+        // TO DO - check styling requirements.
         'class' => ['bhcc-webform-person--first_name'],
       ],
     ];
@@ -52,12 +50,12 @@ class BHCCWebformHouseholdPerson extends WebformCompositeBase
       '#required_error' => 'Please provide a last name.',
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--last_name',
-        //TO DO - check styling requirements
+        // TO DO - check styling requirements.
         'class' => ['bhcc-webform-person--last_name'],
       ],
     ];
 
-    // to do replace with yes_no predefined option
+    // To do replace with yes_no predefined option.
     $elements['select_dob_or_age'] = [
       '#type' => 'radios',
       '#title' => 'Do you know their date of birth?',
@@ -72,14 +70,14 @@ class BHCCWebformHouseholdPerson extends WebformCompositeBase
     $elements['dob_group'] = [
       '#type' => 'container',
       '#description' => t('Container for the DOB.'),
-      '#after_build' => [[get_called_class(), 'afterBuild_DOBContainer']],
+      '#after_build' => [[get_called_class(), 'afterBuildDOBContainer']],
     ];
 
-    //$elements['dob_group']['datelist'] = [
+    // $elements['dob_group']['datelist'] = [
     $elements['dob_group']['date_of_birth'] = [
       '#type' => 'datelist',
       '#title' => t('Date of birth'),
-      '#after_build' => [[get_called_class(), 'afterBuild_Date']],
+      '#after_build' => [[get_called_class(), 'afterBuildDate']],
       '#date_date_min' => '01/01/1900',
       '#date_date_max' => 'today',
       '#date_part_order' => ['day', 'month', 'year'],
@@ -90,9 +88,8 @@ class BHCCWebformHouseholdPerson extends WebformCompositeBase
         'id' => 'household_composite--date',
         'data-webform-composite-id' => $html_id . '--date_of_birth',
         'class' => ['bhcc-webform-person--date_of_birth'],
-      ]
+      ],
     ];
-
 
     $elements['age'] = [
       '#type' => 'number',
@@ -101,7 +98,7 @@ class BHCCWebformHouseholdPerson extends WebformCompositeBase
       '#max' => 140,
       '#required_error' => 'Please provide either date of birth or age.',
       '#size' => 3,
-      '#after_build' => [[get_called_class(), 'afterBuild_Age']],
+      '#after_build' => [[get_called_class(), 'afterBuildAge']],
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--age',
         'class' => ['person-date--age'],
@@ -111,15 +108,17 @@ class BHCCWebformHouseholdPerson extends WebformCompositeBase
     return $elements;
   }
 
-  public static function afterBuild_Date(array $element, FormStateInterface $form_state)
-  {
+  /**
+   * Function for the elements within the AfterBuild.
+   */
+  public static function afterBuildDate(array $element, FormStateInterface $form_state) {
 
-    //set the property of the date of birth elements
+    // Set the property of the date of birth elements.
     $element['day']['#attributes']['placeholder'] = t('DD');
     $element['day']['#maxlength'] = 2;
     $element['day']['#attributes']['class'][] = 'person-date--day';
 
-    // set the required error only on the day field
+    // Set the required error only on the day field.
     $element['day']['#required_error'] = 'Please give either date of birth or age.';
 
     $element['month']['#attributes']['placeholder'] = t('MM');
@@ -130,16 +129,14 @@ class BHCCWebformHouseholdPerson extends WebformCompositeBase
     $element['year']['#maxlength'] = 4;
     $element['year']['#attributes']['class'][] = 'person-date--year';
 
-
     $element['#wrapper_attributes']['class'][] = 'js-form-wrapper';
     return $element;
   }
 
   /**
-   * @todo comment
+   * Function for the elements within the AfterbuildAge.
    */
-  public static function afterBuild_Age(array $element, FormStateInterface $form_state)
-  {
+  public static function afterBuildAge(array $element, FormStateInterface $form_state) {
 
     // Add #states targeting the specific element and table row.
     $composite_name = $element['#parents'][0];
@@ -158,10 +155,9 @@ class BHCCWebformHouseholdPerson extends WebformCompositeBase
   }
 
   /**
-   * @todo comment
+   * Function for the Date of birth afterbuild container.
    */
-  public static function afterBuild_DOBContainer(array $element, FormStateInterface $form_state)
-  {
+  public static function afterBuildDobContainer(array $element, FormStateInterface $form_state) {
 
     $composite_name = $element['#parents'][0];
 
@@ -181,20 +177,17 @@ class BHCCWebformHouseholdPerson extends WebformCompositeBase
     return $element;
   }
 
-
-
   /**
    * {@inheritdoc}
    */
-  public static function validateWebformComposite(&$element, FormStateInterface $form_state, &$complete_form)
-  {
+  public static function validateWebformComposite(&$element, FormStateInterface $form_state, &$complete_form) {
 
-    //@todo do we need validateDatelist (above) now with the fix below ????? 22/10/2021
-    //dpm($element);
+    // @todo do we need validateDatelist (above) now with the fix below ????? 22/10/2021
+    // dpm($element);
     $value = NestedArray::getValue($form_state->getValues(), $element['#parents']);
     $element_key = end($element['#parents']);
 
-    // if not visible - don't validate
+    // If not visible - don't validate.
     if (!Element::isVisibleElement($element)) {
       return;
     }
@@ -203,7 +196,7 @@ class BHCCWebformHouseholdPerson extends WebformCompositeBase
     // Bypass validation and clear any required element errors generated
     // for this element.
     if (!BHCCWebformHelper::isElementVisibleThroughParent($element, $form_state, $complete_form)) {
-      //\Drupal::messenger()->addStatus(t('its NOT visible"'), 'status');
+      // \Drupal::messenger()->addStatus(t('its NOT visible"'), 'status');
       $form_errors = $form_state->getErrors();
       $form_state->clearErrors();
       foreach ($form_errors as $error_key => $error_value) {
@@ -214,29 +207,30 @@ class BHCCWebformHouseholdPerson extends WebformCompositeBase
       return;
     }
 
-
-
-    // otherwise deal with any validation thats needed
+    // Otherwise deal with any validation thats needed
     // 1) first_name is needed
     // 2) last_name is needed
     // 3) radio button select_dob_or_age must be selected
-    // 4) if age radio then a value for age is needed - but this is handled using clientside validation
-    // 5) if dob radio then a value for dob is needed - but this is handled using clientside validation
-
-    // 1) first_name is needed
+    // 4) if age radio then a value for age is needed -.
+    // but this is handled using clientside validation
+    // 5) if dob radio then a value for dob is needed -.
+    // but this is handled using clientside validation.
+    // 1) first_name is needed.
     if (empty($value['first_name'])) {
       $form_state->setErrorByName('first_name', "Please provide a first name");
     }
 
     // 2) last_name is needed
     if (empty($value['last_name'])) {
-      $form_state->setErrorByName('last_name',"Please provide a last name");
+      $form_state->setErrorByName('last_name', "Please provide a last name");
     }
 
     // 3) radio button select_dob_or_age must be selected
-    // NOTE DOB or Age are also required but this is handles with client site validation
+    // NOTE DOB or Age are also required but.
+    // this is handles with client site validation
     if (empty($value['select_dob_or_age'])) {
       $form_state->setErrorByName('select_dob_or_age', "Please provide a date of birth or age.");
     }
   }
+
 }

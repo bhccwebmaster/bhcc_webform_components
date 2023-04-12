@@ -24,26 +24,24 @@ use Drupal\bhcc_webform\BHCCWebformHelper;
  * @see \Drupal\webform\Element\WebformCompositeBase
  * @see \Drupal\bhcc_webform_components\Element\BHCCWebformPersonExample
  */
-class BHCCWebformPerson extends WebformCompositeBase
-{
+class BHCCWebformPerson extends WebformCompositeBase {
 
   /**
    * {@inheritdoc}
    */
-  public static function getCompositeElements(array $element)
-  {
+  public static function getCompositeElements(array $element) {
 
     // Generate a unique ID that can be used by #states.
     $html_id = Html::getUniqueId('bhcc_webform_person');
 
-    //@todo check with Andies that weight setting is correct?
+    // @todo check with Andies that weight setting is correct?
     $elements['title_options'] = [
       '#type' => 'select',
       '#title' => t('Title options'),
       '#options' => 'bhcc_title',
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--title',
-        //@todo check naming conventions here - use hyphen instead of underscore?
+        // @todo check naming conventions here - use hyphen instead of underscore?
         'class' => ['bhcc-webform-person--title'],
       ],
 
@@ -55,7 +53,7 @@ class BHCCWebformPerson extends WebformCompositeBase
       '#required_error' => 'Please provide a first name.',
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--first_name',
-        //TO DO - check styling requirements
+        // TO DO - check styling requirements.
         'class' => ['bhcc-webform-person--first_name'],
       ],
     ];
@@ -65,7 +63,7 @@ class BHCCWebformPerson extends WebformCompositeBase
       '#title' => t('Middle name'),
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--middle_name',
-        //TO DO - check styling requirements
+        // TO DO - check styling requirements.
         'class' => ['bhcc-webform-person--middle_name'],
       ],
     ];
@@ -75,21 +73,20 @@ class BHCCWebformPerson extends WebformCompositeBase
       '#required_error' => 'Please provide a last name.',
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--last_name',
-        //TO DO - check styling requirements
+        // TO DO - check styling requirements.
         'class' => ['bhcc-webform-person--last_name'],
       ],
     ];
 
-
     $elements['date_of_birth'] = [
       '#type' => 'datelist',
       '#title' => t('Date of birth'),
-      '#after_build' => [[get_called_class(), 'afterBuild_Date']],
+      '#after_build' => [[get_called_class(), 'afterBuildDate']],
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--date_of_birth',
         'class' => ['bhcc-webform-person--date_of_birth'],
       ],
-      //--new code below
+      // --new code below
       '#date_date_min' => '01/01/1900',
       '#date_date_max' => 'today',
       '#date_part_order' => ['day', 'month', 'year'],
@@ -98,7 +95,7 @@ class BHCCWebformPerson extends WebformCompositeBase
       '#required_error' => 'Please provide a date of birth.',
     ];
 
-    // get the international phone code
+    // Get the international phone code.
     $elements['country_code_options'] = [
       '#type' => 'select',
       '#title' => t('Country dialling code'),
@@ -107,7 +104,7 @@ class BHCCWebformPerson extends WebformCompositeBase
       '#empty_value' => '+44 (United Kingdom)',
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--country_code',
-        //@todo check naming conventions here - use hyphen instead of underscore?
+        // @todo check naming conventions here - use hyphen instead of underscore?
         'class' => ['bhcc-webform-person--country_code'],
       ],
     ];
@@ -117,7 +114,7 @@ class BHCCWebformPerson extends WebformCompositeBase
       '#title' => t('Mobile phone'),
       '#pattern' => "^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$",
       '#pattern_error' => "Please enter a valid mobile number",
-      '#after_build' => [[get_called_class(), 'afterBuild_UKPhones']],
+      '#after_build' => [[get_called_class(), 'afterBuildUkPhones']],
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--uk_mobile_phone',
         'class' => ['bhcc-webform-person--mobile_phone'],
@@ -129,18 +126,17 @@ class BHCCWebformPerson extends WebformCompositeBase
       '#title' => t('Landline phone'),
       '#pattern' => "(\(?\+44\)?\s?(1|2|3|7|8)\d{3}|\(?(01|02|03|07|08)\d{3}\)?)\s?\d{3}\s?\d{3}|(\(?\+44\)?\s?(1|2|3|5|7|8)\d{2}|\(?(01|02|03|05|07|08)\d{2}\)?)\s?\d{3}\s?\d{4}|(\(?\+44\)?\s?(5|9)\d{2}|\(?(05|09)\d{2}\)?)\s?\d{3}\s?\d{3}",
       '#pattern_error' => "Please enter a valid landline number",
-      '#after_build' => [[get_called_class(), 'afterBuild_UKPhones']],
+      '#after_build' => [[get_called_class(), 'afterBuildUkPhones']],
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--uk_landline_phone',
         'class' => ['bhcc-webform-person--landline_phone'],
       ],
     ];
 
-
     $elements['international_mobile_phone'] = [
       '#type' => 'textfield',
       '#title' => t('Mobile phone'),
-      '#after_build' => [[get_called_class(), 'afterBuild_InternationalPhones']],
+      '#after_build' => [[get_called_class(), 'afterBuildInternationalPhones']],
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--international_mobile_phone',
         'class' => ['bhcc-webform-person--mobile_phone'],
@@ -150,13 +146,12 @@ class BHCCWebformPerson extends WebformCompositeBase
     $elements['international_landline_phone'] = [
       '#type' => 'textfield',
       '#title' => t('Landline phone'),
-      '#after_build' => [[get_called_class(), 'afterBuild_InternationalPhones']],
+      '#after_build' => [[get_called_class(), 'afterBuildInternationalPhones']],
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--international_landline_phone',
         'class' => ['bhcc-webform-person--landline_phone'],
       ],
     ];
-
 
     $elements['email_address'] = [
       '#type' => 'textfield',
@@ -185,7 +180,7 @@ class BHCCWebformPerson extends WebformCompositeBase
       '#options' => 'bhcc_relationship_to_you',
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--relationship_to_you',
-        //@todo check naming conventions here - use hyphen instead of underscore?
+        // @todo check naming conventions here - use hyphen instead of underscore?
         'class' => ['bhcc-webform-person--relationship_to_you'],
       ],
     ];
@@ -193,7 +188,7 @@ class BHCCWebformPerson extends WebformCompositeBase
     $elements['organisation'] = [
       '#type' => 'textfield',
       '#title' => t('Organisation'),
-      '#after_build' => [[get_called_class(), 'afterBuild_Organisation']],
+      '#after_build' => [[get_called_class(), 'afterBuildOrganisation']],
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--organisation',
         'class' => ['bhcc-webform-person--organisation'],
@@ -203,7 +198,7 @@ class BHCCWebformPerson extends WebformCompositeBase
     $elements['detail'] = [
       '#type' => 'textfield',
       '#title' => t('Please provide details below'),
-      '#after_build' => [[get_called_class(), 'afterBuild_Detail']],
+      '#after_build' => [[get_called_class(), 'afterBuildDetail']],
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--detail',
         'class' => ['bhcc-webform-person--detail'],
@@ -213,10 +208,10 @@ class BHCCWebformPerson extends WebformCompositeBase
     return $elements;
   }
 
-
-
-  public static function afterBuild_Organisation(array $element, FormStateInterface $form_state)
-  {
+  /**
+   * Alter the organisation element after it has been built.
+   */
+  public static function afterBuildOrganisation(array $element, FormStateInterface $form_state) {
 
     // Add #states targeting the specific element and table row.
     preg_match('/^(.+)\[[^]]+]$/', $element['#name'], $match);
@@ -238,11 +233,12 @@ class BHCCWebformPerson extends WebformCompositeBase
     return $element;
   }
 
-  public static function afterBuild_Date(array $element, FormStateInterface $form_state)
-  {
-    //$element = parent::afterBuild($element, $form_state);
-
-    //set the property of the date of birth elements
+  /**
+   * Alter the date element after it has been built.
+   */
+  public static function afterBuildDate(array $element, FormStateInterface $form_state) {
+    // $element = parent::afterBuild($element, $form_state);
+    // set the property of the date of birth elements
     $element['day']['#attributes']['placeholder'] = t('DD');
     $element['day']['#maxlength'] = 2;
     $element['day']['#attributes']['class'][] = 'person-date--day';
@@ -258,8 +254,10 @@ class BHCCWebformPerson extends WebformCompositeBase
     return $element;
   }
 
-  public static function afterBuild_UKPhones(array $element, FormStateInterface $form_state)
-  {
+  /**
+   * Alter the UK phone elements after they have been built.
+   */
+  public static function afterBuildUkPhones(array $element, FormStateInterface $form_state) {
 
     // Add #states targeting the specific element and table row.
     preg_match('/^(.+)\[[^]]+]$/', $element['#name'], $match);
@@ -267,10 +265,11 @@ class BHCCWebformPerson extends WebformCompositeBase
 
     $element['#states']['visible'] = [
       ':input[name="' . $composite_name . '[country_code_options]"]' => [
-        //@todo sort out the issue of why no + sign appearing and then amend below
+        // @todo sort out the issue of why no + sign appearing and then amend below
         ['value' => '+44 (United Kingdom)'],
         ['or'],
-        ['value' => ''], //to allow for default of - None - in select drop down
+    // To allow for default of - None - in select drop down.
+        ['value' => ''],
       ],
     ];
 
@@ -280,8 +279,10 @@ class BHCCWebformPerson extends WebformCompositeBase
     return $element;
   }
 
-  public static function afterBuild_InternationalPhones(array $element, FormStateInterface $form_state)
-  {
+  /**
+   * Alter the international phone elements after they have been built.
+   */
+  public static function afterBuildInternationalPhones(array $element, FormStateInterface $form_state) {
 
     // Add #states targeting the specific element and table row.
     preg_match('/^(.+)\[[^]]+]$/', $element['#name'], $match);
@@ -289,10 +290,11 @@ class BHCCWebformPerson extends WebformCompositeBase
 
     $element['#states']['invisible'] = [
       ':input[name="' . $composite_name . '[country_code_options]"]' => [
-        //@todo sort out the issue of why no + sign appearing and then amend below
+        // @todo sort out the issue of why no + sign appearing and then amend below
         ['value' => '+44 (United Kingdom)'],
         ['or'],
-        ['value' => ''], //to allow for default of - None - in select drop down
+    // To allow for default of - None - in select drop down.
+        ['value' => ''],
       ],
     ];
 
@@ -302,18 +304,15 @@ class BHCCWebformPerson extends WebformCompositeBase
     return $element;
   }
 
-
-
   /**
    * {@inheritdoc}
    */
-  public static function validateWebformComposite(&$element, FormStateInterface $form_state, &$complete_form)
-  {
+  public static function validateWebformComposite(&$element, FormStateInterface $form_state, &$complete_form) {
 
     $value = NestedArray::getValue($form_state->getValues(), $element['#parents']);
     $element_key = end($element['#parents']);
 
-    // if not visible - don't validate
+    // If not visible - don't validate.
     if (!Element::isVisibleElement($element)) {
       return;
     }
@@ -322,7 +321,7 @@ class BHCCWebformPerson extends WebformCompositeBase
     // Bypass validation and clear any required element errors generated
     // for this element.
     if (!BHCCWebformHelper::isElementVisibleThroughParent($element, $form_state, $complete_form)) {
-      //\Drupal::messenger()->addStatus(t('its NOT visible"'), 'status');
+      // \Drupal::messenger()->addStatus(t('its NOT visible"'), 'status');
       $form_errors = $form_state->getErrors();
       $form_state->clearErrors();
       foreach ($form_errors as $error_key => $error_value) {
@@ -333,14 +332,10 @@ class BHCCWebformPerson extends WebformCompositeBase
       return;
     }
 
-
-
-    // otherwise deal with any validation thats needed
+    // Otherwise deal with any validation thats needed
     // 1) first_name is needed
-    // 2) last_name is needed
-
-
-    // 1) first_name is needed
+    // 2) last_name is needed.
+    // 1) first_name is needed.
     if (empty($value['first_name'])) {
       $form_state->setErrorByName('first_name', "Please provide a first name");
     }
@@ -350,18 +345,21 @@ class BHCCWebformPerson extends WebformCompositeBase
       $form_state->setErrorByName('last_name', "Please provide a last name");
     }
 
-    // A work around for bug whereby if date_of_birth is only shown conditionally
-    // any 'required' setting will be ignored
+    // A work around for bug whereby if date_of_birth.
+    // is only shown conditionally
+    // any 'required' setting will be ignored.
     if (!empty($element['#date_of_birth___required'])) {
-      // if required is set to true and the DOB field is empty - flag error
+      // If required is set to true and the DOB field is empty - flag error.
       if ($element['#date_of_birth___required'] && empty($value['date_of_birth'])) {
         $form_state->setErrorByName('date_of_birth', "Date of birth is empty or invalid");
       }
     }
   }
 
-  public static function afterBuild_Detail(array $element, FormStateInterface $form_state)
-  {
+  /**
+   * Alter the details element after it has been built.
+   */
+  public static function afterBuildDetail(array $element, FormStateInterface $form_state) {
 
     // Add #states targeting the specific element and table row.
     preg_match('/^(.+)\[[^]]+]$/', $element['#name'], $match);

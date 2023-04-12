@@ -39,7 +39,7 @@ class BHCCWebformFamilyPerson extends WebformCompositeBase {
    */
   protected function formatTextItemValue(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
 
-    //add in the extra lines
+    // Add in the extra lines.
     $value = $this->getValue($element, $webform_submission, $options);
     $lines = [];
     $lines[] = ($value['first_name'] ? ' ' . $value['first_name'] : '') .

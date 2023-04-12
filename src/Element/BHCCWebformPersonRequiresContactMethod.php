@@ -19,31 +19,29 @@ use Drupal\bhcc_webform\BHCCWebformHelper;
  * Webform composite can not contain multiple value elements (i.e. checkboxes)
  * or composites (i.e. webform_address)
  *
- * @FormElement("bhcc_webform_person_requires_phone_number")
+ * @FormElement("bhcc_webform_person_requires_contact_method")
  *
  * @see \Drupal\webform\Element\WebformCompositeBase
  * @see \Drupal\bhcc_webform_components\Element\BHCCWebformPersonExample
  */
-class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
-{
+class BHCCWebformPersonRequiresContactMethod extends WebformCompositeBase {
 
   /**
    * {@inheritdoc}
    */
-  public static function getCompositeElements(array $element)
-  {
+  public static function getCompositeElements(array $element) {
 
     // Generate a unique ID that can be used by #states.
-    $html_id = Html::getUniqueId('bhcc_webform_person_requires_phone_number');
+    $html_id = Html::getUniqueId('bhcc_webform_person_requires_contact_method');
 
-    //@todo check with Andies that weight setting is correct?
+    // @todo check with Andies that weight setting is correct?
     $elements['title_options'] = [
       '#type' => 'select',
       '#title' => t('Title options'),
       '#options' => 'bhcc_title',
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--title',
-        //@todo check naming conventions here - use hyphen instead of underscore?
+        // @todo check naming conventions here - use hyphen instead of underscore?
         'class' => ['bhcc-webform-person--title'],
       ],
 
@@ -55,7 +53,7 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
       '#required_error' => 'Please provide a first name.',
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--first_name',
-        //TO DO - check styling requirements
+        // TO DO - check styling requirements.
         'class' => ['bhcc-webform-person--first_name'],
       ],
     ];
@@ -63,10 +61,9 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
     $elements['middle_name'] = [
       '#type' => 'textfield',
       '#title' => t('Middle name'),
-      //'#required' => TRUE,
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--middle_name',
-        //TO DO - check styling requirements
+        // TO DO - check styling requirements.
         'class' => ['bhcc-webform-person--middle_name'],
       ],
     ];
@@ -76,21 +73,19 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
       '#required_error' => 'Please provide a last name.',
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--last_name',
-        //TO DO - check styling requirements
+        // TO DO - check styling requirements.
         'class' => ['bhcc-webform-person--last_name'],
       ],
     ];
 
-
     $elements['date_of_birth'] = [
       '#type' => 'datelist',
       '#title' => t('Date of birth'),
-      '#after_build' => [[get_called_class(), 'afterBuild_Date']],
+      '#after_build' => [[get_called_class(), 'afterBuildDate']],
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--date_of_birth',
         'class' => ['bhcc-webform-person--date_of_birth'],
       ],
-      //--new code below
       '#date_date_min' => '01/01/1900',
       '#date_date_max' => 'today',
       '#date_part_order' => ['day', 'month', 'year'],
@@ -98,7 +93,7 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
       '#description' => 'For example 08/02/1982',
     ];
 
-    // get the international phone code
+    // Get the international phone code.
     $elements['country_code_options'] = [
       '#type' => 'select',
       '#title' => t('Country dialling code'),
@@ -107,7 +102,7 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
       '#empty_value' => '+44 (United Kingdom)',
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--country_code',
-        //@todo check naming conventions here - use hyphen instead of underscore?
+        // @todo check naming conventions here - use hyphen instead of underscore?
         'class' => ['bhcc-webform-person--country_code'],
       ],
     ];
@@ -117,10 +112,10 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
       '#title' => t('Mobile phone'),
       '#pattern' => "^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$",
       '#pattern_error' => "Please enter a valid mobile number",
-      '#required_error' => "Please enter either mobile number or a landline number",
+      '#required_error' => "Please enter either mobile number, landline number or email address",
       '#after_build' => [
-        [get_called_class(), 'afterBuild_UKPhones'],
-        //[get_called_class(), 'afterBuild_PhoneRequired'],
+        [get_called_class(), 'afterBuildUkPhones'],
+        // [get_called_class(), 'afterBuild_ContactMethodRequired'],
       ],
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--uk_mobile_phone',
@@ -133,10 +128,10 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
       '#title' => t('Landline phone'),
       '#pattern' => "(\(?\+44\)?\s?(1|2|3|7|8)\d{3}|\(?(01|02|03|07|08)\d{3}\)?)\s?\d{3}\s?\d{3}|(\(?\+44\)?\s?(1|2|3|5|7|8)\d{2}|\(?(01|02|03|05|07|08)\d{2}\)?)\s?\d{3}\s?\d{4}|(\(?\+44\)?\s?(5|9)\d{2}|\(?(05|09)\d{2}\)?)\s?\d{3}\s?\d{3}",
       '#pattern_error' => "Please enter a valid landline number",
-      '#required_error' => "Please enter either mobile number or a landline number",
+      '#required_error' => "Please enter either mobile number, landline number or email address",
       '#after_build' => [
-        [get_called_class(), 'afterBuild_UKPhones'],
-        //[get_called_class(), 'afterBuild_PhoneRequired'],
+        [get_called_class(), 'afterBuildUkPhones'],
+        // [get_called_class(), 'afterBuild_ContactMethodRequired'],
       ],
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--uk_landline_phone',
@@ -144,14 +139,13 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
       ],
     ];
 
-
     $elements['international_mobile_phone'] = [
       '#type' => 'textfield',
       '#title' => t('Mobile phone'),
-      '#required_error' => "Please enter either mobile number or a landline number",
+      '#required_error' => "Please enter either mobile number, landline number or email address",
       '#after_build' => [
-        [get_called_class(), 'afterBuild_InternationalPhones'],
-        //[get_called_class(), 'afterBuild_PhoneRequired'],
+        [get_called_class(), 'afterBuildInternationalPhones'],
+        // [get_called_class(), 'afterBuild_ContactMethodRequired'],
       ],
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--international_mobile_phone',
@@ -162,10 +156,10 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
     $elements['international_landline_phone'] = [
       '#type' => 'textfield',
       '#title' => t('Landline phone'),
-      '#required_error' => "Please enter either mobile number or a landline number",
+      '#required_error' => "Please enter either mobile number, landline number or email address",
       '#after_build' => [
-        [get_called_class(), 'afterBuild_InternationalPhones'],
-        //[get_called_class(), 'afterBuild_PhoneRequired'],
+        [get_called_class(), 'afterBuildInternationalPhones'],
+        // [get_called_class(), 'afterBuild_ContactMethodRequired'],
       ],
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--international_landline_phone',
@@ -173,10 +167,13 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
       ],
     ];
 
-
     $elements['email_address'] = [
       '#type' => 'textfield',
       '#title' => t('Email address'),
+      '#required_error' => "Please enter either mobile number, landline number or email address",
+      '#after_build' => [
+        // [get_called_class(), 'afterBuild_ContactMethodRequired'],
+      ],
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--email_address',
         'class' => ['bhcc-webform-person--email_address'],
@@ -201,7 +198,7 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
       '#options' => 'bhcc_relationship_to_you',
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--relationship_to_you',
-        //@todo check naming conventions here - use hyphen instead of underscore?
+        // @todo check naming conventions here - use hyphen instead of underscore?
         'class' => ['bhcc-webform-person--relationship_to_you'],
       ],
     ];
@@ -209,7 +206,7 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
     $elements['organisation'] = [
       '#type' => 'textfield',
       '#title' => t('Organisation'),
-      '#after_build' => [[get_called_class(), 'afterBuild_Organisation']],
+      '#after_build' => [[get_called_class(), 'afterBuildOrganisation']],
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--organisation',
         'class' => ['bhcc-webform-person--organisation'],
@@ -219,7 +216,7 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
     $elements['detail'] = [
       '#type' => 'textfield',
       '#title' => t('Please provide details below'),
-      '#after_build' => [[get_called_class(), 'afterBuild_Detail']],
+      '#after_build' => [[get_called_class(), 'afterBuildDetail']],
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--detail',
         'class' => ['bhcc-webform-person--detail'],
@@ -229,8 +226,10 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
     return $elements;
   }
 
-  public static function afterBuild_Organisation(array $element, FormStateInterface $form_state)
-  {
+  /**
+   * Alter the organisation element after it has been built.
+   */
+  public static function afterBuildOrganisation(array $element, FormStateInterface $form_state) {
 
     // Add #states targeting the specific element and table row.
     preg_match('/^(.+)\[[^]]+]$/', $element['#name'], $match);
@@ -252,10 +251,12 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
     return $element;
   }
 
-  public static function afterBuild_Date(array $element, FormStateInterface $form_state)
-  {
-
-    //set the property of the date of birth elements
+  /**
+   * Alter the Date element after it hs been built.
+   */
+  public static function afterBuildDate(array $element, FormStateInterface $form_state) {
+    // $element = parent::afterBuild($element, $form_state);
+    // set the property of the date of birth elements
     $element['day']['#attributes']['placeholder'] = t('DD');
     $element['day']['#maxlength'] = 2;
     $element['day']['#attributes']['class'][] = 'person-date--day';
@@ -271,8 +272,10 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
     return $element;
   }
 
-  public static function afterBuild_UKPhones(array $element, FormStateInterface $form_state)
-  {
+  /**
+   * Alter the uk phone number elements after it has been built.
+   */
+  public static function afterBuildUkPhones(array $element, FormStateInterface $form_state) {
 
     // Add #states targeting the specific element and table row.
     preg_match('/^(.+)\[[^]]+]$/', $element['#name'], $match);
@@ -282,7 +285,8 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
       ':input[name="' . $composite_name . '[country_code_options]"]' => [
         ['value' => '+44 (United Kingdom)'],
         ['or'],
-        ['value' => ''], //to allow for default of - None - in select drop down
+    // To allow for default of - None - in select drop down.
+        ['value' => ''],
       ],
     ];
 
@@ -292,8 +296,10 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
     return $element;
   }
 
-  public static function afterBuild_InternationalPhones(array $element, FormStateInterface $form_state)
-  {
+  /**
+   * Alter the international phone number elements after building.
+   */
+  public static function afterBuildInternationalPhones(array $element, FormStateInterface $form_state) {
 
     // Add #states targeting the specific element and table row.
     preg_match('/^(.+)\[[^]]+]$/', $element['#name'], $match);
@@ -303,7 +309,8 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
       ':input[name="' . $composite_name . '[country_code_options]"]' => [
         ['value' => '+44 (United Kingdom)'],
         ['or'],
-        ['value' => ''], //to allow for default of - None - in select drop down
+    // To allow for default of - None - in select drop down.
+        ['value' => ''],
       ],
     ];
 
@@ -312,45 +319,18 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
     $element['#wrapper_attributes']['class'][] = 'js-form-wrapper';
     return $element;
   }
-
-  public static function afterBuild_PhoneRequired(array $element, FormStateInterface $form_state)
-  {
-
-    // Add #states targeting the specific element and table row.
-    preg_match('/^(.+)\[[^]]+]$/', $element['#name'], $match);
-    $composite_name = $match[1];
-
-    $element['#states']['required'] = [
-      [
-        ':input[name="' . $composite_name . '[uk_mobile_phone]"]' => ['value' => ''],
-        'and',
-        ':input[name="' . $composite_name . '[uk_landline_phone]"]' => ['value' => ''],
-        'and',
-        ':input[name="' . $composite_name . '[international_mobile_phone]"]' => ['value' => ''],
-        'and',
-        ':input[name="' . $composite_name . '[international_landline_phone]"]' => ['value' => ''],
-      ],
-    ];
-
-    // Add .js-form-wrapper to wrapper (ie td) to prevent #states API from
-    // disabling the entire table row when this element is disabled.
-    $element['#wrapper_attributes']['class'][] = 'js-form-wrapper';
-    return $element;
-  }
-
 
   /**
    * {@inheritdoc}
    */
-  public static function validateWebformComposite(&$element, FormStateInterface $form_state, &$complete_form)
-  {
+  public static function validateWebformComposite(&$element, FormStateInterface $form_state, &$complete_form) {
 
-    //@todo do we need validateDatelist (above) now with the fix below ????? 22/10/2021
-    //dpm($element);
+    // @todo do we need validateDatelist (above) now with the fix below ????? 22/10/2021
+    // dpm($element);
     $value = NestedArray::getValue($form_state->getValues(), $element['#parents']);
     $element_key = end($element['#parents']);
 
-    // if not visible - don't validate
+    // If not visible - don't validate.
     if (!Element::isVisibleElement($element)) {
       return;
     }
@@ -359,7 +339,7 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
     // Bypass validation and clear any required element errors generated
     // for this element.
     if (!BHCCWebformHelper::isElementVisibleThroughParent($element, $form_state, $complete_form)) {
-      //\Drupal::messenger()->addStatus(t('its NOT visible"'), 'status');
+      // \Drupal::messenger()->addStatus(t('its NOT visible"'), 'status');
       $form_errors = $form_state->getErrors();
       $form_state->clearErrors();
       foreach ($form_errors as $error_key => $error_value) {
@@ -370,13 +350,10 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
       return;
     }
 
-    // otherwise deal with any validation thats needed
+    // Otherwise deal with any validation thats needed
     // 1) first_name is needed
-    // 2) last_name is needed
-    // 3) at least 1 phone number
-
-
-    // 1) first_name is needed
+    // 2) last_name is needed.
+    // 1) first_name is needed.
     if (empty($value['first_name'])) {
       $form_state->setErrorByName('first_name', "Please provide a first name");
     }
@@ -386,28 +363,31 @@ class BHCCWebformPerson_RequiresPhoneNumber extends WebformCompositeBase
       $form_state->setErrorByName('last_name', "Please provide a last name");
     }
 
-    // 3) at least 1 phone number
     if (
       empty($value['uk_mobile_phone'])
       && empty($value['uk_landline_phone'])
       && empty($value['international_mobile_phone'])
       && empty($value['international_landline_phone'])
+      && empty($value['email_address'])
     ) {
 
-      $form_state->setErrorByName('uk_mobile_phone', "Please provide a phone number.");
-      $form_state->setErrorByName('international_mobile_phone', "Please provide a phone number.");
+      $form_state->setErrorByName('uk_mobile_phone', "Please provide either a phone number or email address");
+      $form_state->setErrorByName('international_mobile_phone', "Please provide either a phone number or email address");
     }
 
-    // A work around for bug whereby if date_of_birth is only shown conditionally
+    // A work around for bug whereby if date_of_birth.
+    // is only shown conditionally
     // any 'required' setting will be ignored.
-    // '#date_of_birth___required' is only set when true @todo test this out
+    // '#date_of_birth___required' is only set when true @todo test this out.
     if (isset($element['#date_of_birth___required']) && empty($value['date_of_birth'])) {
       $form_state->setErrorByName('date_of_birth', "Date of birth is empty or invalid");
     }
   }
 
-  public static function afterBuild_Detail(array $element, FormStateInterface $form_state)
-  {
+  /**
+   * Alter the details element after building.
+   */
+  public static function afterBuildDetail(array $element, FormStateInterface $form_state) {
 
     // Add #states targeting the specific element and table row.
     preg_match('/^(.+)\[[^]]+]$/', $element['#name'], $match);

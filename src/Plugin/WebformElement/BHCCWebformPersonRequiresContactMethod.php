@@ -24,7 +24,7 @@ use Drupal\webform\WebformSubmissionInterface;
  * @see \Drupal\webform\Plugin\WebformElementInterface
  * @see \Drupal\webform\Annotation\WebformElement
  */
-class BHCCWebformPerson_RequiresContactMethod extends WebformCompositeBase {
+class BHCCWebformPersonRequiresContactMethod extends WebformCompositeBase {
 
   /**
    * {@inheritdoc}
@@ -44,7 +44,7 @@ class BHCCWebformPerson_RequiresContactMethod extends WebformCompositeBase {
       ($value['last_name'] ? ' ' . $value['last_name'] : '') .
       ($value['mobile_phone'] ? ' ' . $value['mobile_phone'] : '') .
       ($value['landline_phone'] ? ' ' . $value['landline_phone'] : '') .
-      ($value['email_address'] ? ' ' . $value['email_address'] : '') ;
+      ($value['email_address'] ? ' ' . $value['email_address'] : '');
 
     return $lines;
   }

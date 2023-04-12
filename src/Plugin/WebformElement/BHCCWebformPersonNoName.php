@@ -44,7 +44,7 @@ class BHCCWebformPersonNoName extends WebformCompositeBase {
       ($value['last_name'] ? ' ' . $value['last_name'] : '') .
       ($value['mobile_phone'] ? ' ' . $value['mobile_phone'] : '') .
       ($value['landline_phone'] ? ' ' . $value['landline_phone'] : '') .
-      ($value['email_address'] ? ' ' . $value['email_address'] : '') ;
+      ($value['email_address'] ? ' ' . $value['email_address'] : '');
 
     return $lines;
   }

@@ -23,14 +23,12 @@ use Drupal\bhcc_webform\BHCCWebformHelper;
  *
  * @see \Drupal\webform\Element\WebformCompositeBase
  */
-class BHCCWebformFamilyPerson extends WebformCompositeBase
-{
+class BHCCWebformFamilyPerson extends WebformCompositeBase {
 
   /**
    * {@inheritdoc}
    */
-  public static function getCompositeElements(array $element)
-  {
+  public static function getCompositeElements(array $element) {
 
     // Generate a unique ID that can be used by #states.
     $html_id = Html::getUniqueId('bhcc_webform_family_person');
@@ -41,7 +39,7 @@ class BHCCWebformFamilyPerson extends WebformCompositeBase
       '#required_error' => 'Please provide a first name.',
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--first_name',
-        //TO DO - check styling requirements
+        // TO DO - check styling requirements.
         'class' => ['bhcc-webform-person--first_name'],
       ],
     ];
@@ -52,7 +50,7 @@ class BHCCWebformFamilyPerson extends WebformCompositeBase
       '#required_error' => 'Please provide a last name.',
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--last_name',
-        //TO DO - check styling requirements
+        // TO DO - check styling requirements.
         'class' => ['bhcc-webform-person--last_name'],
       ],
     ];
@@ -60,9 +58,9 @@ class BHCCWebformFamilyPerson extends WebformCompositeBase
     $elements['date_of_birth'] = [
       '#type' => 'datelist',
       '#title' => t('Date of birth'),
-      '#after_build' => [[get_called_class(), 'afterBuild_Date']],
+      '#after_build' => [[get_called_class(), 'afterBuilDate']],
       '#attributes' => [
-        'data-webform-composite-id' => $html_id . '--date_of_birth',
+        'Data-webform-composite-id' => $html_id . '--date_of_birth',
         'class' => ['bhcc-webform-person--date_of_birth'],
       ],
       '#required_error' => 'Please provide either date of birth or age.',
@@ -70,8 +68,8 @@ class BHCCWebformFamilyPerson extends WebformCompositeBase
       '#date_date_max' => 'today',
       '#date_part_order' => ['day', 'month', 'year'],
       '#date_text_parts' => ['day', 'month', 'year'],
-      '#description' => 'For example 08/02/1982',
-      //'#element_validate' => [[get_called_class(), 'validateDatelist']],
+      '#description' => t('For example 08/02/1982'),
+      // '#element_validate' => [[get_called_class(), 'validateDatelist']],
     ];
 
     $elements['family_relationship_to_you'] = [
@@ -90,9 +88,8 @@ class BHCCWebformFamilyPerson extends WebformCompositeBase
   /**
    * Performs the after_build callback.
    */
-  public static function afterBuild_date(array $element, FormStateInterface $form_state)
-  {
-    //set the property of the date of birth field
+  public static function afterBuildDate(array $element, FormStateInterface $form_state) {
+    // Set the property of the date of birth field.
     $element['day']['#attributes']['placeholder'] = t('DD');
     $element['day']['#maxlength'] = 2;
     $element['day']['#attributes']['class'][] = 'person-date--day';
@@ -111,15 +108,14 @@ class BHCCWebformFamilyPerson extends WebformCompositeBase
   /**
    * {@inheritdoc}
    */
-  public static function validateWebformComposite(&$element, FormStateInterface $form_state, &$complete_form)
-  {
+  public static function validateWebformComposite(&$element, FormStateInterface $form_state, &$complete_form) {
 
-    //@todo do we need validateDatelist (above) now with the fix below ????? 22/10/2021
-    //dpm($element);
+    // @todo do we need validateDatelist (above) now with the fix below ????? 22/10/2021
+    // dpm($element);
     $value = NestedArray::getValue($form_state->getValues(), $element['#parents']);
     $element_key = end($element['#parents']);
 
-    // if not visible - don't validate
+    // If not visible - don't validate.
     if (!Element::isVisibleElement($element)) {
       return;
     }
@@ -128,7 +124,7 @@ class BHCCWebformFamilyPerson extends WebformCompositeBase
     // Bypass validation and clear any required element errors generated
     // for this element.
     if (!BHCCWebformHelper::isElementVisibleThroughParent($element, $form_state, $complete_form)) {
-      //\Drupal::messenger()->addStatus(t('its NOT visible"'), 'status');
+      // \Drupal::messenger()->addStatus(t('its NOT visible"'), 'status');
       $form_errors = $form_state->getErrors();
       $form_state->clearErrors();
       foreach ($form_errors as $error_key => $error_value) {
@@ -139,16 +135,12 @@ class BHCCWebformFamilyPerson extends WebformCompositeBase
       return;
     }
 
-
-
-    // otherwise deal with any validation thats needed
+    // Otherwise deal with any validation thats needed
     // 1) first_name is needed
     // 2) last_name is needed
     // 3) date_of_birth must be selected
-    // 4) family_relationship_to_you  must be selected
-
-
-    // 1) first_name is needed
+    // 4) family_relationship_to_you  must be selected.
+    // 1) first_name is needed.
     if (empty($value['first_name'])) {
       $form_state->setErrorByName('first_name', "Please provide a first name");
     }
@@ -168,4 +160,5 @@ class BHCCWebformFamilyPerson extends WebformCompositeBase
       $form_state->setErrorByName('family_relationship_to_you', "Please tell us what their relationship is to you.");
     }
   }
+
 }

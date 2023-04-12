@@ -2,7 +2,6 @@
 
 namespace Drupal\bhcc_webform_components\Plugin\WebformElement;
 
-use Drupal\webform\Plugin\WebformElement\DateList;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -16,14 +15,12 @@ use Drupal\Core\Form\FormStateInterface;
  *   category = @Translation("BHCC"),
  * )
  */
-class BHCCWebformDOBDateList extends BHCCWebformDateList{
-
+class BHCCWebformDOBDateList extends BHCCWebformDateList {
 
   /**
    * {@inheritdoc}
    */
-  protected function defineDefaultProperties()
-  {
+  protected function defineDefaultProperties() {
 
     return [
       'date_date_max' => 'today',
@@ -33,8 +30,7 @@ class BHCCWebformDOBDateList extends BHCCWebformDateList{
   /**
    * {@inheritdoc}
    */
-  public function validateConfigurationForm(array &$form, FormStateInterface $form_state)
-  {
+  public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
     parent::validateConfigurationForm($form, $form_state);
     $values = $form_state->getValues();
     $values['#date_date_max'] = 'today';

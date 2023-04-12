@@ -5,4 +5,3 @@ package: 'BHCC Webform'
 core_version_requirement: ^9 || ^10
 dependencies:
   - 'webform:webform'
-
