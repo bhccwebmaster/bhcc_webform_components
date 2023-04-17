@@ -58,7 +58,7 @@ class BHCCWebformFamilyPerson extends WebformCompositeBase {
     $elements['date_of_birth'] = [
       '#type' => 'datelist',
       '#title' => t('Date of birth'),
-      '#after_build' => [[get_called_class(), 'afterBuilDate']],
+      '#after_build' => [[get_called_class(), 'afterBuildDate']],
       '#attributes' => [
         'Data-webform-composite-id' => $html_id . '--date_of_birth',
         'class' => ['bhcc-webform-person--date_of_birth'],
