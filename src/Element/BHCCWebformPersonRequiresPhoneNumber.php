@@ -82,7 +82,7 @@ class BHCCWebformPersonRequiresPhoneNumber extends WebformCompositeBase {
     $elements['date_of_birth'] = [
       '#type' => 'datelist',
       '#title' => t('Date of birth'),
-      '#after_build' => [[get_called_class(), 'afterBuild_Date']],
+      '#after_build' => [[get_called_class(), 'afterBuildDate']],
       '#attributes' => [
         'data-webform-composite-id' => $html_id . '--date_of_birth',
         'class' => ['bhcc-webform-person--date_of_birth'],
