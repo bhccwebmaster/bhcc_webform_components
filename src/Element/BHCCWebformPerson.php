@@ -91,7 +91,7 @@ class BHCCWebformPerson extends WebformCompositeBase {
       '#date_date_max' => 'today',
       '#date_part_order' => ['day', 'month', 'year'],
       '#date_text_parts' => ['day', 'month', 'year'],
-      '#description' => 'For example 08/02/1982',
+      '#description' => t('For example 08/02/1982'),
       '#required_error' => 'Please provide a date of birth.',
     ];
 
@@ -170,7 +170,7 @@ class BHCCWebformPerson extends WebformCompositeBase {
         'data-webform-composite-id' => $html_id . '--national_insurance_number',
         'class' => ['bhcc-webform-person--national_insurance_number'],
       ],
-      '#description' => 'eg. NA123456A',
+      '#description' => t('eg. NA123456A'),
       '#pattern' => "^([a-zA-Z]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([a-zA-Z]){1}?$",
     ];
 

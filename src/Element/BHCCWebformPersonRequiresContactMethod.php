@@ -90,7 +90,7 @@ class BHCCWebformPersonRequiresContactMethod extends WebformCompositeBase {
       '#date_date_max' => 'today',
       '#date_part_order' => ['day', 'month', 'year'],
       '#date_text_parts' => ['day', 'month', 'year'],
-      '#description' => 'For example 08/02/1982',
+      '#description' => t('For example 08/02/1982'),
     ];
 
     // Get the international phone code.
@@ -170,7 +170,7 @@ class BHCCWebformPersonRequiresContactMethod extends WebformCompositeBase {
     $elements['email_address'] = [
       '#type' => 'textfield',
       '#title' => t('Email address'),
-      '#required_error' => "Please enter either mobile number, landline number or email address",
+      '#required_error' => t("Please enter either mobile number, landline number or email address"),
       '#after_build' => [
         // [get_called_class(), 'afterBuild_ContactMethodRequired'],
       ],
@@ -188,7 +188,7 @@ class BHCCWebformPersonRequiresContactMethod extends WebformCompositeBase {
         'data-webform-composite-id' => $html_id . '--national_insurance_number',
         'class' => ['bhcc-webform-person--national_insurance_number'],
       ],
-      '#description' => 'eg. NA123456A',
+      '#description' => t('eg. NA123456A'),
       '#pattern' => "^([a-zA-Z]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([a-zA-Z]){1}?$",
     ];
 

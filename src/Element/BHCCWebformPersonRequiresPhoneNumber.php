@@ -186,7 +186,7 @@ class BHCCWebformPersonRequiresPhoneNumber extends WebformCompositeBase {
         'data-webform-composite-id' => $html_id . '--national_insurance_number',
         'class' => ['bhcc-webform-person--national_insurance_number'],
       ],
-      '#description' => 'eg. NA123456A',
+      '#description' => t('eg. NA123456A'),
       '#pattern' => "^([a-zA-Z]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([0-9]){2}( )?([a-zA-Z]){1}?$",
     ];
 

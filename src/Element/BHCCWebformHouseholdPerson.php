@@ -82,7 +82,7 @@ class BHCCWebformHouseholdPerson extends WebformCompositeBase {
       '#date_date_max' => 'today',
       '#date_part_order' => ['day', 'month', 'year'],
       '#date_text_parts' => ['day', 'month', 'year'],
-      '#description' => 'For example 08/02/1982',
+      '#description' => t('For example 08/02/1982'),
       '#required_error' => 'Please provide either date of birth or age.',
       '#attributes' => [
         'id' => 'household_composite--date',

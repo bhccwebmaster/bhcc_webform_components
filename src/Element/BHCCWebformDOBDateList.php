@@ -15,7 +15,7 @@ class BHCCWebformDOBDateList extends BHCCWebformDateList {
   public function getInfo() {
     $parentInfo = parent::getInfo();
     $childInfo = [
-      '#description' => t('For example 08/02/1982'),
+      '#description' => $this->t('For example 08/02/1982'),
     ];
     $returnInfo = array_replace($parentInfo, $childInfo);
     return $returnInfo;
