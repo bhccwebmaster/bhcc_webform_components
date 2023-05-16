@@ -330,11 +330,17 @@ class BHCCWebformPersonRequiresPhoneNumber extends WebformCompositeBase {
     $element['#states']['required'] = [
       [
         ':input[name="' . $composite_name . '[uk_mobile_phone]"]' => ['value' => ''],
-        'and',
+      ],
+      'and',
+      [
         ':input[name="' . $composite_name . '[uk_landline_phone]"]' => ['value' => ''],
-        'and',
+      ],
+      'and',
+      [
         ':input[name="' . $composite_name . '[international_mobile_phone]"]' => ['value' => ''],
-        'and',
+      ],
+      'and',
+      [
         ':input[name="' . $composite_name . '[international_landline_phone]"]' => ['value' => ''],
       ],
     ];
