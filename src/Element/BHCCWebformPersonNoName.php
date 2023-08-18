@@ -319,12 +319,16 @@ class BHCCWebformPersonNoName extends WebformCompositeBase {
     // If the element or any of its parent containers are hidden by conditions,
     // Bypass validation and clear any required element errors generated
     // for this element.
-    if (!BHCCWebformHelper::isElementVisibleThroughParent($element, $form_state, $complete_form)) {
-      $form_errors = $form_state->getErrors();
-      $form_state->clearErrors();
-      foreach ($form_errors as $error_key => $error_value) {
-        if (strpos($error_key, $element_key . ']') !== 0) {
-          $form_state->setErrorByName($error_key, $error_value);
+    $limit_validation_errors = $form_state->getLimitValidationErrors();
+    if (!BHCCWebformHelper::isElementVisibleThroughParent($element, $form_state, $complete_form)) {  
+      // Only clear and reset errors if there are no limit validation errors keys set.
+      if (is_null($limit_validation_errors)) {
+        $form_errors = $form_state->getErrors();
+        $form_state->clearErrors();
+        foreach ($form_errors as $error_key => $error_value) {
+          if (strpos($error_key, $element_key . ']') !== 0) {
+            $form_state->setErrorByName($error_key, $error_value);
+          }
         }
       }
       return;
