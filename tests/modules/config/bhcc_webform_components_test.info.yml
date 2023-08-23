@@ -1,9 +1,9 @@
-name: 'BHCC webformimage.png date test'
-description: 'Helper module to setup a webform with a bhcc_webform_date field.'
+name: 'BHCC webform component tests'
+description: 'Helper module to setup webforms with various bhcc_webform_components component.'
 type: module
 package: Testing
 core_version_requirement: ^8.8 || ^9
 
 dependencies:
 - webform:webform
-- bhcc_webform_date:bhcc_webform_date
+- bhcc_webform_components:bhcc_webform_components
