@@ -1,8 +1,8 @@
 name: 'BHCC webform component tests'
-description: 'Helper module to setup webforms with various bhcc_webform_components component.'
+description: 'Helper module to setup webforms with various bhccwebform_components elements.'
 type: module
 package: Testing
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^9 || ^10
 
 dependencies:
 - webform:webform
