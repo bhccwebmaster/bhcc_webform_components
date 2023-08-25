@@ -8,47 +8,31 @@ uid: 1
 template: false
 archive: false
 id: test_conditionally_visible_perso
-title: 'Test that conditionally hidden person component doesn''t prevent another fields required error from being shown'
+title: 'Test conditionally visible person'
 description: ''
-category: Testing
+category: ''
 elements: |-
   page_1:
-    '#type': webform_wizard_page
+    '#type': wizard_page
     '#title': page_1
-  page_1_fieldset:
-      '#type': fieldset
-      '#title': page_1
-      page_1_header:
-        '#type': webform_markup
-        '#display_on': both
-        '#markup': |
-          <h2>
-            Page 1
-          </h2>
-  page_2:
-    '#type': webform_wizard_page
-    '#title': page_2
-    page_2_fieldset:
-      '#type': fieldset
-      '#title': page_2
-      page_2_header:
-        '#type': webform_markup
-        '#display_on': both
-        '#markup': '<h2>Page 2</h2>'
-      show_person_component:
-        '#type': radios
-        '#title': 'Show person Component?'
-        '#options': yes_no
-        '#required': true
-        '#required_error': 'Would you like to see the person component?'
-      person_component:
-        '#type': bhcc_webform_person
-        '#title': 'Details of the person'
-        '#title_display': before
-        '#states':
-          visible:
-            ':input[name="show_person_component"]':
-              value: 'Yes'
+    page_1_header:
+      '#type': markup
+      '#display_on': both
+      '#markup': '<h2>Page 1</h2>'
+    show_person_component:
+      '#type': radios
+      '#title': 'Show person Component?'
+      '#options': yes_no
+      '#required': true
+      '#required_error': 'Would you like to see the person component?'
+    person_component:
+      '#type': bhcc_webform_person
+      '#title': 'Details of the second person'
+      '#title_display': before
+      '#states':
+        visible:
+          ':input[name="show_person_component"]':
+            value: 'Yes'
 css: ''
 javascript: ''
 settings:
@@ -136,8 +120,6 @@ settings:
   wizard_toggle: false
   wizard_toggle_show_label: ''
   wizard_toggle_hide_label: ''
-  wizard_page_type: container
-  wizard_page_title_tag: h2
   preview: 0
   preview_label: ''
   preview_title: ''
