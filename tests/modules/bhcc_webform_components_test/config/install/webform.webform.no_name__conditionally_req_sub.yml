@@ -7,28 +7,27 @@ close: null
 uid: 1
 template: false
 archive: false
-id: person_component_hidden_form
-title: 'Test hidden person component hiding other form errors'
+id: no_name__conditionally_req_sub
+title: 'Test person component no name, with a conditionally required sub element'
 description: ''
 category: ''
 elements: |-
   page_1:
     '#type': wizard_page
-    '#title': page_1
-    show_person_component:
+    '#title': 'Page 1'
+    first_name_required:
       '#type': radios
-      '#title': 'Show person Component?'
-      '#options': yes_no
-      '#required': true
-      '#required_error': 'Would you like to see the person component?'
-    person_component:
-      '#type': bhcc_webform_person
-      '#title': 'Details of the person'
-      '#title_display': before
-      '#states':
-        visible:
-          ':input[name="show_person_component"]':
-            value: 'Yes'
+      '#title': 'Conditionally require first name (sub element)?'
+      '#options':
+        1: 'Yes'
+        2: 'No'
+    bhcc_webform_person_composite_may_not_have_a_name:
+      '#type': bhcc_webform_person_no_name
+      '#title': 'BHCC Webform Person Composite - may not have a name'
+      '#first_name__states':
+        required:
+          ':input[name="first_name_required"]':
+            value: 1
 css: ''
 javascript: ''
 settings:

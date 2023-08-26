@@ -14,7 +14,7 @@ use Drupal\Tests\BrowserTestBase;
  * having various states and combinations of states e.g.
  * hidden, required, visible, invisible.
  */
-class PersonComponentStatesTest extends BrowserTestBase {
+class PersonComponentNoNameTest extends BrowserTestBase {
 
   /**
    * This tests for a previous issue described below.
@@ -32,17 +32,19 @@ class PersonComponentStatesTest extends BrowserTestBase {
    * Press submit
    * Assert that error message is shown
    */
-  public function test_hidden_person_component_hiding_form_errors() :void {
+  public function test_person_component_no_name_conditionally_required_subelement() :void {
 
     // Load the form.
-    $this->drupalGet('/webform/person_component__hidden_form');
+    $this->drupalGet('/webform/no_name__conditionally_req_sub');
 
     // Fill in the date element and then proceed to submit the page.
-    $form_values = [];
+    $form_values = [
+      'first_name_required'   => '1',
+    ];
     $this->submitForm($form_values, 'Submit');
 
     // Assert that the error messages are present.
-    $this->assertSession()->pageTextContains('Would you like to see the person component?');
+    $this->assertSession()->pageTextContains('Please provide a first name.');
 
   }
 
