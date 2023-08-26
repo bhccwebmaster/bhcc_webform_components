@@ -16,31 +16,31 @@ use Drupal\Tests\BrowserTestBase;
  */
 class PersonComponentStatesTest extends BrowserTestBase {
 
-/**
- * This tests for a previous issue described below.
- *
- * A yes/no radio button displays the person component
- * and is a required element.  If the user doesn't make a
- * selection, an error should be display. But the person
- * components validation wiped errors, so that no error
- * is displayed.
- *
- * Test steps:
- *
- * Load the test form
- * Do NOT make a selection of radio button
- * Press submit
- * Assert that error message is shown
- */
-  public function testHiddenPersonComponentHidingOtherErrors() :void {
-
-    $form = '/webform/test_conditionally_visible_perso';
+  /**
+   * This tests for a previous issue described below.
+   *
+   * A yes/no radio button displays the person component
+   * and is a required element.  If the user doesn't make a
+   * selection, an error should be display. But the person
+   * components validation wiped errors, so that no error
+   * is displayed.
+   *
+   * Test steps:
+   *
+   * Load the test form
+   * Do NOT make a selection of radio button
+   * Press submit
+   * Assert that error message is shown
+   */
+  public function test_hidden_person_component_hiding_form_errors() :void {
 
     // Load the form.
-    $this->drupalGet($form);
-    // Pass empty data array.
+    $this->drupalGet('/webform/person_component_hidden_form');
+
+    // Fill in the date element and then proceed to submit the page.
     $form_values = [];
     $this->submitForm($form_values, 'Submit');
+
     // Assert that the error messages are present.
     $this->assertSession()->pageTextContains('Would you like to see the person component?');
 
@@ -51,6 +51,8 @@ class PersonComponentStatesTest extends BrowserTestBase {
    */
   protected static $modules = [
     'bhcc_webform_components',
+    'bhcc_webform_components_test',
+    'bhcc_webform',
   ];
 
   /**

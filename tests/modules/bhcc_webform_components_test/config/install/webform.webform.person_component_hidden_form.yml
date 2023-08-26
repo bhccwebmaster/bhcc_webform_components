@@ -7,18 +7,14 @@ close: null
 uid: 1
 template: false
 archive: false
-id: test_conditionally_visible_perso
-title: 'Test conditionally visible person'
+id: person_component_hidden_form
+title: 'Test hidden person component hiding other form errors'
 description: ''
 category: ''
 elements: |-
   page_1:
     '#type': wizard_page
     '#title': page_1
-    page_1_header:
-      '#type': markup
-      '#display_on': both
-      '#markup': '<h2>Page 1</h2>'
     show_person_component:
       '#type': radios
       '#title': 'Show person Component?'
@@ -27,7 +23,7 @@ elements: |-
       '#required_error': 'Would you like to see the person component?'
     person_component:
       '#type': bhcc_webform_person
-      '#title': 'Details of the second person'
+      '#title': 'Details of the person'
       '#title_display': before
       '#states':
         visible:
