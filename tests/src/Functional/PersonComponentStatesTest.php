@@ -37,12 +37,43 @@ class PersonComponentStatesTest extends BrowserTestBase {
     // Load the form.
     $this->drupalGet('/webform/person_component__hidden_form');
 
-    // Fill in the date element and then proceed to submit the page.
+    // Don't fill in the form, just try to submit.
     $form_values = [];
     $this->submitForm($form_values, 'Submit');
 
     // Assert that the error messages are present.
     $this->assertSession()->pageTextContains('Would you like to see the person component?');
+
+    // Test that person component errors display.
+    $form_values = [
+      'show_person_component' => 'Yes',
+    ];
+    $this->submitForm($form_values, 'Submit');
+
+    // Assert that the error messages are present.
+    $this->assertSession()->pageTextContains('Please provide a first name');
+    $this->assertSession()->pageTextContains('Please provide a last name');
+
+    // Test person component can be submitted.
+    $form_values = [
+      'show_person_component' => 'Yes',
+      'person_component[first_name]' => $this->randomMachineName(8),
+      'person_component[last_name]' => $this->randomMachineName(8),
+    ];
+    $this->submitForm($form_values, 'Submit');
+
+    // Assert that we reach the submission page.
+    $this->assertSession()->pageTextContains('New submission added to Test hidden person component hiding other form errors.');
+
+    // Test that not showing the person component does not show error messages.
+    $this->drupalGet('/webform/person_component__hidden_form');
+    $form_values = [
+      'show_person_component' => 'No',
+    ];
+    $this->submitForm($form_values, 'Submit');
+
+    // Assert we reach the submission page.
+    $this->assertSession()->pageTextContains('New submission added to Test hidden person component hiding other form errors.');
 
   }
 
