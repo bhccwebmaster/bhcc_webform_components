@@ -32,7 +32,7 @@ class PersonComponentNoNameTest extends BrowserTestBase {
    * Press submit
    * Assert that error message is shown
    */
-  public function test_person_component_no_name_conditionally_required_subelement() :void {
+  public function testPersonComponentNoNameConditionallyRequiredSubelement() :void {
 
     // Load the form.
     $this->drupalGet('/webform/no_name__conditionally_req_sub');

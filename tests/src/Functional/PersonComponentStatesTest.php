@@ -32,7 +32,7 @@ class PersonComponentStatesTest extends BrowserTestBase {
    * Press submit
    * Assert that error message is shown
    */
-  public function test_hidden_person_component_hiding_form_errors() :void {
+  public function testHiddenPersonComponentHidingFormErrors() :void {
 
     // Load the form.
     $this->drupalGet('/webform/person_component__hidden_form');

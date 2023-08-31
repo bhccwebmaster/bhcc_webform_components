@@ -182,8 +182,8 @@ class BHCCWebformHouseholdPerson extends WebformCompositeBase {
    */
   public static function validateWebformComposite(&$element, FormStateInterface $form_state, &$complete_form) {
 
-    // @todo do we need validateDatelist (above) now with the fix below ????? 22/10/2021
-    // dpm($element);
+    // @todo do we need validateDatelist (above) now with the fix below
+    // ????? 22/10/2021
     $value = NestedArray::getValue($form_state->getValues(), $element['#parents']);
     $element_key = end($element['#parents']);
 
@@ -196,8 +196,9 @@ class BHCCWebformHouseholdPerson extends WebformCompositeBase {
     // Bypass validation and clear any required element errors generated
     // for this element.
     $limit_validation_errors = $form_state->getLimitValidationErrors();
-    if (!BHCCWebformHelper::isElementVisibleThroughParent($element, $form_state, $complete_form)) {  
-      // Only clear and reset errors if there are no limit validation errors keys set.
+    if (!BHCCWebformHelper::isElementVisibleThroughParent($element, $form_state, $complete_form)) {
+      // Only clear and reset errors if there are no limit validation errors
+      // keys set.
       if (is_null($limit_validation_errors)) {
         $form_errors = $form_state->getErrors();
         $form_state->clearErrors();

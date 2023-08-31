@@ -264,10 +264,11 @@ class BHCCWebformPersonNoName extends WebformCompositeBase {
 
     $element['#states']['visible'] = [
       ':input[name="' . $composite_name . '[country_code_options]"]' => [
-        // @todo sort out the issue of why no + sign appearing and then amend below
+        // @todo sort out the issue of why no + sign appearing and then
+        // amend below
         ['value' => '+44 (United Kingdom)'],
         ['or'],
-    // To allow for default of - None - in select drop down.
+        // To allow for default of - None - in select drop down.
         ['value' => ''],
       ],
     ];
@@ -320,8 +321,9 @@ class BHCCWebformPersonNoName extends WebformCompositeBase {
     // Bypass validation and clear any required element errors generated
     // for this element.
     $limit_validation_errors = $form_state->getLimitValidationErrors();
-    if (!BHCCWebformHelper::isElementVisibleThroughParent($element, $form_state, $complete_form)) {  
-      // Only clear and reset errors if there are no limit validation errors keys set.
+    if (!BHCCWebformHelper::isElementVisibleThroughParent($element, $form_state, $complete_form)) {
+      // Only clear and reset errors if there are no limit validation errors
+      // keys set.
       if (is_null($limit_validation_errors)) {
         $form_errors = $form_state->getErrors();
         $form_state->clearErrors();

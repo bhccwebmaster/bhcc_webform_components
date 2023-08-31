@@ -321,8 +321,9 @@ class BHCCWebformPerson extends WebformCompositeBase {
     // Bypass validation and clear any required element errors generated
     // for this element.
     $limit_validation_errors = $form_state->getLimitValidationErrors();
-    if (!BHCCWebformHelper::isElementVisibleThroughParent($element, $form_state, $complete_form)) {  
-      // Only clear and reset errors if there are no limit validation errors keys set.
+    if (!BHCCWebformHelper::isElementVisibleThroughParent($element, $form_state, $complete_form)) {
+      // Only clear and reset errors if there are no limit validation errors
+      // keys set.
       if (is_null($limit_validation_errors)) {
         $form_errors = $form_state->getErrors();
         $form_state->clearErrors();
