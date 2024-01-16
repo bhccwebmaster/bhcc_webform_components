@@ -11,7 +11,7 @@ id: bhcc_relationship_to_you
 label: 'BHCC Relationship to you'
 category: BHCC
 likert: false
-options: |
+options: |-
   'Colleague': 'Colleague'
   'Family': 'Family'
   'Friend': 'Friend'
