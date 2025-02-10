@@ -2,11 +2,11 @@
 
 namespace Drupal\bhcc_webform_components\Element;
 
-use Drupal\bhcc_webform\BHCCWebformHelper;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\bhcc_webform\BHCCWebformHelper;
 use Drupal\webform\Element\WebformCompositeBase;
 
 /**
